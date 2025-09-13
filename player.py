@@ -7,6 +7,7 @@ from constants import (
     PLAYER_SHOT_SPEED,
     PLAYER_SHOT_COOLDOWN,
     PLAYER_LIVES,
+    PLAYER_ACCELARATION,
     SCREEN_HEIGHT,
     SCREEN_WIDTH,
 )
@@ -19,6 +20,9 @@ class Player(CircleShape):
         self.rotation = 0
         self.timer = 0
         self.lives = PLAYER_LIVES
+        self.acceleration = PLAYER_ACCELARATION
+        self.velocity = pygame.Vector2(0, 0)
+        self.max_speed = PLAYER_SPEED * 2
 
     # in the player class
     def triangle(self):
@@ -52,9 +56,14 @@ class Player(CircleShape):
             else:
                 self.shoot()
 
+        self.position += self.velocity * dt
+        self.velocity *= 0.98
+
     def move(self, dt):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
-        self.position += forward * PLAYER_SPEED * dt
+        self.velocity += forward * self.acceleration * dt
+        if self.velocity.length() > self.max_speed:
+            self.velocity.scale_to_length(self.max_speed)
 
     def shoot(self):
         shot = Shot(self.position[0], self.position[1])

@@ -1,5 +1,13 @@
+# TODO:Add an explosion effect for the asteroids
+# TODO:Make the objects wrap around the screen instead of disappearing
+# TODO:Create different weapon types
+# TODO:Make the asteroids lumpy instead of perfectly round
+# TODO:Make the ship have a triangular hit box instead of a circular one
+# TODO:Add a shield power-up
+# TODO:Add a speed power-up
+# TODO:Add bombs that can be dropped
+
 import pygame
-import sys
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from constants import SCREEN_HEIGHT, SCREEN_WIDTH
@@ -15,6 +23,7 @@ def main():
 
     ui_font = pygame.font.SysFont("jetbrainsmononerdfontmono", 20)
     game_over_font = pygame.font.SysFont("jetbrainsmononerdfontmono", 40)
+
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
@@ -28,6 +37,10 @@ def main():
     player = Player(x=SCREEN_WIDTH / 2, y=SCREEN_HEIGHT / 2)
     asteroid_field = AsteroidField()
 
+    image = pygame.transform.scale(
+        pygame.image.load("./bg.png").convert(), (SCREEN_WIDTH, SCREEN_HEIGHT)
+    )
+
     score = 0
     game_over = False
 
@@ -37,20 +50,16 @@ def main():
                 return
 
         if game_over:
-            # Clear screen
-            screen.fill("black")
+            screen.blit(image, (0, 0))
 
-            # Draw the frozen game state (all sprites as they were at death)
             for obj in drawable:
                 obj.draw(screen)
 
-            # Draw a semi-transparent overlay to darken the background
             overlay = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
             overlay.set_alpha(128)  # 50% transparency
             overlay.fill("black")
             screen.blit(overlay, (0, 0))
 
-            # Display game over text on top
             game_over_surf = game_over_font.render("Game Over!", True, "white")
             game_over_rect = game_over_surf.get_rect(
                 center=(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
@@ -77,7 +86,8 @@ def main():
             dt = clock.tick(60) / 1000  # Still need to tick the clock
             continue
 
-        screen.fill("black")
+        # screen.fill("black")
+        screen.blit(image, (0, 0))
         updatable.update(dt)
 
         for asteroid in asteroids:

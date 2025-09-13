@@ -6,6 +6,7 @@ from constants import (
     PLAYER_SPEED,
     PLAYER_SHOT_SPEED,
     PLAYER_SHOT_COOLDOWN,
+    PLAYER_LIVES,
 )
 import pygame
 

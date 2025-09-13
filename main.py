@@ -13,6 +13,8 @@ def main():
     clock = pygame.time.Clock()
     dt = 0
 
+    fonts = pygame.font.SysFont("jetbrainsmononerdfontmono", 20)
+
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
@@ -25,7 +27,7 @@ def main():
 
     player = Player(x=SCREEN_WIDTH / 2, y=SCREEN_HEIGHT / 2)
     asteroid_field = AsteroidField()
-
+    score = 0
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -37,6 +39,15 @@ def main():
         for asteroid in asteroids:
             for shot in shots:
                 if shot.collided(asteroid):
+                    match asteroid.size:
+                        case 3:
+                            score += 1
+                        case 2:
+                            score += 2
+                        case 1:
+                            score += 3
+                        case _:
+                            score += 0
                     asteroid.split()
                     shot.kill()
             if asteroid.collided(player):
@@ -45,6 +56,9 @@ def main():
 
         for obj in drawable:
             obj.draw(screen)
+
+        score_surf = fonts.render(f"Score: {score}", True, "white")
+        screen.blit(score_surf, (50, 670))
 
         pygame.display.flip()
 

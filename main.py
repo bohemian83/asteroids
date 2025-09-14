@@ -1,8 +1,9 @@
-# TODO:Add an explosion effect for the asteroids
 # TODO:Make the objects wrap around the screen instead of disappearing
-# TODO:Create different weapon types
+
+# TODO:Add an explosion effect for the asteroids
 # TODO:Make the asteroids lumpy instead of perfectly round
-# TODO:Make the ship have a triangular hit box instead of a circular one
+
+# TODO:Create different weapon types
 # TODO:Add a shield power-up
 # TODO:Add a speed power-up
 # TODO:Add bombs that can be dropped
@@ -107,13 +108,10 @@ def main():
 
         for asteroid in asteroids:
             if asteroid.collided(player):
-                print(f"Player hit! Lives before: {player.lives}")
                 for ast in asteroids:
                     ast.kill()
                 if player.hit():
                     game_over = True
-                else:
-                    print(f"Player respawned! Lives remaining: {player.lives}")
                 break
 
         for obj in drawable:

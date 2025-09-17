@@ -1,5 +1,5 @@
-from circleshape import CircleShape
 from shot import Shot
+from circleshape import CircleShape
 from constants import (
     PLAYER_RADIUS,
     PLAYER_TURN_SPEED,
@@ -54,6 +54,17 @@ class Player(CircleShape):
                 self.timer -= dt
             else:
                 self.shoot()
+
+        if self.position.x > SCREEN_WIDTH + self.radius:
+            self.position.x = -self.radius
+        elif self.position.x < -self.radius:
+            self.position.x = SCREEN_WIDTH + self.radius
+
+        # Top/Bottom wrapping
+        if self.position.y > SCREEN_HEIGHT + self.radius:
+            self.position.y = -self.radius
+        elif self.position.y < -self.radius:
+            self.position.y = SCREEN_HEIGHT + self.radius
 
         self.position += self.velocity * dt
         self.velocity *= 0.98

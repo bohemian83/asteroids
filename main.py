@@ -1,5 +1,3 @@
-# TODO:Make the objects wrap around the screen instead of disappearing
-
 # TODO:Add an explosion effect for the asteroids
 # TODO:Make the asteroids lumpy instead of perfectly round
 

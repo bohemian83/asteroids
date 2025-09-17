@@ -1,6 +1,7 @@
 import pygame
 import random
 from circleshape import CircleShape
+from explosion import Explosion
 from constants import ASTEROID_MIN_RADIUS, SCREEN_WIDTH, SCREEN_HEIGHT
 
 
@@ -20,7 +21,6 @@ class Asteroid(CircleShape):
         elif self.position.x < -self.radius:
             self.position.x = SCREEN_WIDTH + self.radius
 
-        # Top/Bottom wrapping
         if self.position.y > SCREEN_HEIGHT + self.radius:
             self.position.y = -self.radius
         elif self.position.y < -self.radius:
@@ -28,6 +28,7 @@ class Asteroid(CircleShape):
 
     def split(self):
         self.kill()
+        explosion = Explosion(self.position.x, self.position.y, self.radius)
         if self.radius <= ASTEROID_MIN_RADIUS:
             return
 

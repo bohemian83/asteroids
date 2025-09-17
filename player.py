@@ -1,4 +1,5 @@
 from shot import Shot
+from explosion import Explosion
 from circleshape import CircleShape
 from constants import (
     PLAYER_RADIUS,
@@ -80,6 +81,7 @@ class Player(CircleShape):
         self.timer = PLAYER_SHOT_COOLDOWN
 
     def hit(self):
+        explosion = Explosion(self.position.x, self.position.y, self.radius)
         self.lives -= 1
         if self.lives <= 0:
             self.kill()

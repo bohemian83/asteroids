@@ -82,10 +82,9 @@ def main():
                 return
 
             pygame.display.flip()
-            dt = clock.tick(60) / 1000  # Still need to tick the clock
+            dt = clock.tick(60) / 1000
             continue
 
-        # screen.fill("black")
         screen.blit(image, (0, 0))
         updatable.update(dt)
 

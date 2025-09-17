@@ -60,7 +60,6 @@ class Player(CircleShape):
         elif self.position.x < -self.radius:
             self.position.x = SCREEN_WIDTH + self.radius
 
-        # Top/Bottom wrapping
         if self.position.y > SCREEN_HEIGHT + self.radius:
             self.position.y = -self.radius
         elif self.position.y < -self.radius:
